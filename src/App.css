@@ -1,3 +1,21 @@
+section.greeting {
+  margin: 0px auto;
+  text-align:  center;
+}
+
+section.greeting-details {
+  display:  inherit;
+}
+
+.submit-button.add-or-update {
+  margin: 5px 10px;
+  width: 150px;
+}
+
+section.coming-soon {
+  text-align:  center;
+}
+
 .date {
   text-align:  center;
   margin: 40px 0px;

@@ -1,18 +1,27 @@
-form.mui-form {
+h1.project-title {
+    text-align: center;
+}
+
+.mui-form {
     width: 80%;
     text-align: center;
     margin: 0px auto;
+    display: inherit;
 }
 
 form.itemsearch {
     margin: 30px 0px;
 }
 
-form.mui-form .deliverable-count-form {
+.mui-form .deliverable-count-form {
     margin: 50px auto
 }
 
 .search-results-rendered {
     text-align: center;
+    margin: 40px 0px;
+}
+
+section.submit-button {
     margin: 40px 0px;
 }

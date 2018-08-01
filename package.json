@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "*",
+    "axios": "^0.18.0",
     "bcrypt": "*",
     "material-ui": "^0.20.1",
     "meteor-node-stubs": "^0.4.1",
     "react": "^16.4.1",
+    "react-calendar": "^2.16.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
     "react-tap-event-plugin": "^3.0.3"

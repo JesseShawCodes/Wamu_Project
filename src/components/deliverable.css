@@ -1,0 +1,17 @@
+.deliverable {
+    background-color: #e8e8e8;
+    margin: 0px auto;
+    padding: 40px 10px;
+}
+
+.deliverable:nth-child(odd) {
+    background: #FFF
+}
+
+section.calendar-input {
+    margin: 40px;
+}
+
+.react-calendar {
+    margin: 0px auto;
+}
