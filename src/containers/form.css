@@ -3,3 +3,16 @@ form.mui-form {
     text-align: center;
     margin: 0px auto;
 }
+
+form.itemsearch {
+    margin: 30px 0px;
+}
+
+form.mui-form .deliverable-count-form {
+    margin: 50px auto
+}
+
+.search-results-rendered {
+    text-align: center;
+    margin: 40px 0px;
+}
