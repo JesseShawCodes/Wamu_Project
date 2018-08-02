@@ -90,8 +90,19 @@ export default class Form extends Component {
         }
     }
 
+    addADelvirable() {
+        if (this.state.projectTitle !== undefined && this.state.step === 2) {
+            return(
+                <form>
+                    Testing
+                </form>
+            )
+        }
+    }
+
     deliverableCountInput() {
         if (this.state.step !== 1) {
+            /*
             return (
                 <form className="mui-form deliverable-count-form" onSubmit={(e) => this.deliverables(e)}>
                     <legend>How Many Deliverables Does your Project have?</legend>
@@ -100,6 +111,14 @@ export default class Form extends Component {
                     <RaisedButton type="submit" className="submit-button">Submit Deliverable Number</RaisedButton>
                 </form>
             )
+            */
+           return (
+                <section className="mui-form deliverable-count-form">
+                    <Deliverable project={this.state.projectTitle} />
+                    <section className="submit-button">
+                    </section>
+                </section>
+           )
         }
     }
     

@@ -11,10 +11,15 @@ export default class Deliverable extends Component {
         textReceived: false,
         date: new Date(),
         deliverable: 'Deliverable Title',
-        details: 'Enter deliverable details here'
+        details: 'Enter deliverable details here',
+        project: this.props.project,
+        projectDeliverables: [],
+        submited: false,
+        receivedData: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDetailChange = this.handleDetailChange.bind(this)
+    this.submitProjectInfo = this.submitProjectInfo.bind(this)
   }
 
   onChange = date => this.setState({ date })
@@ -29,15 +34,32 @@ export default class Deliverable extends Component {
 
   submitProjectInfo(e) {
     e.preventDefault();
-    console.log("Testing...")
-    axios.post('http://localhost:8080/', {})
+    axios.post('http://localhost:8080/', {
+      deliverable: this.state.deliverable,
+      date: this.state.date,
+      details: this.state.details,
+      project: this.state.project 
+    })
     .then((result) => {
-      console.log(result)
+      this.setState({receivedData: true})
     });
   }
 
+  renderResultsInDatabase() {
+    axios.get('http://localhost:8080/data')
+    .then(data => console.log(data))
+    if (this.state.receivedData === true) {
+      return (
+        <h1>Testing</h1>
+      )
+    }
+
+  }
+
   render() {
+    console.log(this.props.project)
     return (
+        <div>
         <form onSubmit={this.submitProjectInfo}>
         <section className="mui-textfield deliverable">
             <input type="text" name="deliverable" value={this.state.deliverable} onChange={this.handleChange}></input>
@@ -53,6 +75,8 @@ export default class Deliverable extends Component {
         </section>
         <RaisedButton type="submit" className="mui-btn mui-btn--raised">Update Deliverable</RaisedButton>
         </form>
+        {this.renderResultsInDatabase()}
+        </div>
     );
   }
 }

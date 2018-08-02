@@ -7,7 +7,7 @@ export default class Update extends Component {
     return (
         <section className="mui-textfield">
             <legend>Select your Project</legend>
-            <Project project="DCist" />
+            <Project project="DCist Site Migration" />
         </section>
     );
   }
