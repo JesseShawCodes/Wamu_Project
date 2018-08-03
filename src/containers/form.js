@@ -11,10 +11,8 @@ export default class Form extends Component {
         this.state = {
             date: new Date(),
             deliverableCount: 0,
-            countReceived: false,
             projectTitle: undefined,
-            step: 1,
-            projectInformation: {}
+            step: 1
         };
     }
 
@@ -44,28 +42,6 @@ export default class Form extends Component {
 
     }
 
-    deliverables(e) {
-        e.preventDefault();
-        if (this.input.value.trim() === '') {
-            return;
-        }
-        var projectData = {}
-        for (var i = 0; i < parseInt(this.input.value, 10); i++) {
-            projectData[`deliverable${i + 1}`] = {
-                'date': '',
-                'details': '',
-                'tite': ''
-            }
-        }
-        console.log(projectData)
-        this.setState({
-            deliverableCount: parseInt(this.input.value, 10),
-            countReceived: true,
-            step: 3,
-            projectInformation: projectData
-        })
-    }
-
     setProjectTitle(e) {
         e.preventDefault();
         if (this.input.value.trim() === '') {
@@ -90,28 +66,8 @@ export default class Form extends Component {
         }
     }
 
-    addADelvirable() {
-        if (this.state.projectTitle !== undefined && this.state.step === 2) {
-            return(
-                <form>
-                    Testing
-                </form>
-            )
-        }
-    }
-
     deliverableCountInput() {
         if (this.state.step !== 1) {
-            /*
-            return (
-                <form className="mui-form deliverable-count-form" onSubmit={(e) => this.deliverables(e)}>
-                    <legend>How Many Deliverables Does your Project have?</legend>
-                    <label htmlFor="color" className="color-search-label">Item</label>
-                    <input type="search" ref={input => this.input = input} />
-                    <RaisedButton type="submit" className="submit-button">Submit Deliverable Number</RaisedButton>
-                </form>
-            )
-            */
            return (
                 <section className="mui-form deliverable-count-form">
                     <Deliverable project={this.state.projectTitle} />

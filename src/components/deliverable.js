@@ -8,18 +8,19 @@ export default class Deliverable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        textReceived: false,
         date: new Date(),
         deliverable: 'Deliverable Title',
         details: 'Enter deliverable details here',
         project: this.props.project,
         projectDeliverables: [],
+        textReceived: false,
         submited: false,
         receivedData: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDetailChange = this.handleDetailChange.bind(this)
     this.submitProjectInfo = this.submitProjectInfo.bind(this)
+    this.renderResultsInDatabase = this.renderResultsInDatabase.bind(this)
   }
 
   onChange = date => this.setState({ date })
@@ -34,30 +35,29 @@ export default class Deliverable extends Component {
 
   submitProjectInfo(e) {
     e.preventDefault();
-    axios.post('http://localhost:8080/', {
+    var newDeliverable = {
       deliverable: this.state.deliverable,
       date: this.state.date,
       details: this.state.details,
       project: this.state.project 
-    })
-    .then((result) => {
-      this.setState({receivedData: true})
-    });
+    }
+    axios.post('http://localhost:8080/', newDeliverable)
+    .then(this.setState({projectDeliverables: [...this.state.projectDeliverables, ]}));
   }
 
   renderResultsInDatabase() {
-    axios.get('http://localhost:8080/data')
-    .then(data => console.log(data))
     if (this.state.receivedData === true) {
-      return (
-        <h1>Testing</h1>
-      )
+    var self = this
+    axios.get('http://localhost:8080/data')
+    .then(function(data){
+      self.setState({projectDeliverables: data.data})
+      
+    })
     }
-
   }
 
   render() {
-    console.log(this.props.project)
+    console.log(this.state.projectDeliverables)
     return (
         <div>
         <form onSubmit={this.submitProjectInfo}>
@@ -75,7 +75,7 @@ export default class Deliverable extends Component {
         </section>
         <RaisedButton type="submit" className="mui-btn mui-btn--raised">Update Deliverable</RaisedButton>
         </form>
-        {this.renderResultsInDatabase()}
+        {this.state.projectDeliverables}
         </div>
     );
   }
