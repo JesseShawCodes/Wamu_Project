@@ -3,9 +3,12 @@ import './form.css'
 import RaisedButton from "material-ui/RaisedButton";
 
 import Deliverable from '../components/deliverable'
-// import Textfield from '../components/textfield'
 
-export default class Form extends Component {
+import { connect } from 'react-redux'
+import { searchDb } from "../actions";
+
+
+class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,11 +17,6 @@ export default class Form extends Component {
             projectTitle: undefined,
             step: 1
         };
-    }
-
-    submitProjectInfo(e) {
-        e.preventDefault();
-        console.log("Received")
     }
 
     renderResults() {
@@ -51,6 +49,7 @@ export default class Form extends Component {
             projectTitle: this.input.value,
             step: 2
         })
+        this.props.dispatch(searchDb(this.input.value))
     }
 
     projectTitle() {
@@ -93,3 +92,13 @@ export default class Form extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+    return {
+      date: state.data,
+      newProject: state.newProject,
+      updateProject: state.updateProject
+    }
+}
+  
+export default connect(mapStateToProps)(Form)

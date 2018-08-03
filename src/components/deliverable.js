@@ -4,7 +4,16 @@ import Calendar from 'react-calendar';
 import RaisedButton from "material-ui/RaisedButton";
 import axios from 'axios';
 
-export default class Deliverable extends Component {
+
+
+//Redux Functions
+import { connect } from 'react-redux'
+import {
+  searchDb
+} from '../actions'
+
+
+class Deliverable extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,6 +44,7 @@ export default class Deliverable extends Component {
 
   submitProjectInfo(e) {
     e.preventDefault();
+    const { dispatch } = this.props
     var newDeliverable = {
       deliverable: this.state.deliverable,
       date: this.state.date,
@@ -42,7 +52,8 @@ export default class Deliverable extends Component {
       project: this.state.project 
     }
     axios.post('http://localhost:8080/', newDeliverable)
-    .then(this.setState({projectDeliverables: [...this.state.projectDeliverables, ]}));
+    // .then(this.setState({projectDeliverables: [...this.state.projectDeliverables, ]}));
+    dispatch(searchDb(newDeliverable));
   }
 
   renderResultsInDatabase() {
@@ -57,7 +68,6 @@ export default class Deliverable extends Component {
   }
 
   render() {
-    console.log(this.state.projectDeliverables)
     return (
         <div>
         <form onSubmit={this.submitProjectInfo}>
@@ -80,3 +90,13 @@ export default class Deliverable extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    date: state.data,
+    newProject: state.newProject,
+    updateProject: state.updateProject
+  }
+}
+
+export default connect(mapStateToProps)(Deliverable)

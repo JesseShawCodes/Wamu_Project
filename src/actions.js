@@ -17,42 +17,13 @@ export const searchDataError = error => ({
     error
 });
 
-//Itunes API Links
-var itunesUrl = "https://itunes.apple.com/search?term=";
-var albumUrl = "https://itunes.apple.com/lookup?id=";
 
 function _search(name) {
     if (Math.random() < 0.25) {
         return Promise.reject('Something went wrong. Please try your search again');
     }
-    let artist = name;
-    let searchTerm = artist.split(' ').join('+');
-    return fetch(`${itunesUrl}${searchTerm}`).then(function (response){
-        return response.json();
-    })
-    .then(function (json){
-        for (var i = 0; i < json.results.length; i++) {
-          if (json.results[i].artistName === artist) {
-            let artistId = json.results[i].artistId
-            return fetch(`${albumUrl}${artistId}&entity=album`).then(function(res) {
-                if (!res.ok) {
-                    return Promise.reject(res.statusText);
-                }
-                return res.json()
-            })
-            .then(
-                function(data) {
-                    data.results.map(music => music)
-                    return data.results
-                }
-            )
-          }
-          else {
-              continue
-          }
-          // return
-        }
-    })
+    return fetch(`http://localhost:8080/project-title/${name}`)
+    .then(data => console.log(data))
 }
 
 function search(name) {
