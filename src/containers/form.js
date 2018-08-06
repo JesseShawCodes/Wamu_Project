@@ -95,7 +95,7 @@ class Form extends Component {
 
 function mapStateToProps(state) {
     return {
-      date: state.data,
+      data: state.data,
       newProject: state.newProject,
       updateProject: state.updateProject
     }

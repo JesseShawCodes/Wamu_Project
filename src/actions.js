@@ -18,20 +18,23 @@ export const searchDataError = error => ({
 });
 
 
+//Search Project Title
 function _search(name) {
     if (Math.random() < 0.25) {
         return Promise.reject('Something went wrong. Please try your search again');
     }
     return fetch(`http://localhost:8080/project-title/${name}`)
-    .then(data => console.log(data))
+    .then(function(response) {
+        return response.json()
+    })
 }
 
 function search(name) {
+    console.log("TESTING")
     return new Promise((resolve, reject) => {
         resolve(_search(name))
     });
 }
-
 
 export const searchDb = name => dispatch => {
     dispatch(searchDataRequest());

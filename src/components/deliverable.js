@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import {
   searchDb
 } from '../actions'
+import Deliverabledetails from "./deliverabledetails";
 
 
 class Deliverable extends Component {
@@ -21,7 +22,7 @@ class Deliverable extends Component {
         deliverable: 'Deliverable Title',
         details: 'Enter deliverable details here',
         project: this.props.project,
-        projectDeliverables: [],
+        projectDeliverables: this.props.data,
         textReceived: false,
         submited: false,
         receivedData: false
@@ -52,8 +53,71 @@ class Deliverable extends Component {
       project: this.state.project 
     }
     axios.post('http://localhost:8080/', newDeliverable)
-    // .then(this.setState({projectDeliverables: [...this.state.projectDeliverables, ]}));
     dispatch(searchDb(newDeliverable));
+  }
+
+  renderProjectData() {
+    /*
+    var DCIST = {
+      deliverable1: {
+          "title": "Back Up Your Website’s Files",
+          "date": '2018-08-16',
+          "status": 'Completed'
+      },
+      deliverable2: {
+          "title": "Export The WordPress Database",
+          "date": '2018-08-24',
+          "status": 'Completed'
+      },
+      deliverable3: {
+          "title": "Create The WordPress Database On New Host Server",
+          "date": '2018-09-06',
+          "status": "In Progress"
+      },
+      deliverable4: {
+          "title": "Edit the wp-config.php File",
+          "date": '2018-09-15',
+          "status": "In Progress"
+      },
+      deliverable5: {
+          "title": "Import Your Database",
+          "date": '2018-09-24',
+          "status": "In Progress"
+      },
+      deliverable6: {
+          "title": "Upload The WordPress Files To Your New Host",
+          "date": '2018-10-01',
+          "status": "In Progress"
+      },
+      deliverable7: {
+          "title": "Linking to New URL & Defining New Domain",
+          "date": '2018-10-10',
+          "status": "In Progress"
+      },
+      deliverable8: {
+          "title": "Submit Final Project",
+          "date": '2018-10-30',
+          "status": "In Progress"
+    }}
+    */
+    if (this.props.data !== undefined) {
+      var deliverablesFromProject = []
+      for (var i = 0; i < this.props.data.length; i++) {
+        deliverablesFromProject[i] =
+          <Deliverabledetails
+            key={i}
+            projecttitle={this.props.data[i].deliverable}
+            projectdetails={this.props.data[i].details}
+            dueDate={this.props.data[i].date}
+          />
+      }
+      console.log(deliverablesFromProject)
+      return (
+        <section className="database-results">
+          {deliverablesFromProject}
+        </section>
+      )
+    }
   }
 
   renderResultsInDatabase() {
@@ -70,6 +134,7 @@ class Deliverable extends Component {
   render() {
     return (
         <div>
+          {this.renderProjectData()}
         <form onSubmit={this.submitProjectInfo}>
         <section className="mui-textfield deliverable">
             <input type="text" name="deliverable" value={this.state.deliverable} onChange={this.handleChange}></input>
@@ -85,7 +150,8 @@ class Deliverable extends Component {
         </section>
         <RaisedButton type="submit" className="mui-btn mui-btn--raised">Update Deliverable</RaisedButton>
         </form>
-        {this.state.projectDeliverables}
+        <section className="project-data">
+        </section>
         </div>
     );
   }
@@ -93,7 +159,7 @@ class Deliverable extends Component {
 
 function mapStateToProps(state) {
   return {
-    date: state.data,
+    data: state.data,
     newProject: state.newProject,
     updateProject: state.updateProject
   }
