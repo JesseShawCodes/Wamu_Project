@@ -26,7 +26,7 @@ export default class Project extends Component {
     showProjectDetailsAfterClick(props) {
         var DCIST = {
             deliverable1: {
-                "title": "Back Up Your Website’s Files",
+                "title": "Back Up Site Files",
                 "date": '2018-08-16',
                 "status": 'Completed'
             },
@@ -46,12 +46,12 @@ export default class Project extends Component {
                 "status": "In Progress"
             },
             deliverable5: {
-                "title": "Import Your Database",
+                "title": "Import Database",
                 "date": '2018-09-24',
                 "status": "In Progress"
             },
             deliverable6: {
-                "title": "Upload The WordPress Files To Your New Host",
+                "title": "Upload The WordPress Files To New Host",
                 "date": '2018-10-01',
                 "status": "In Progress"
             },
